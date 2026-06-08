@@ -29,7 +29,11 @@ User choices (gathered via `ask_human`):
 **Web Admin (8):** Login · Dashboard · Kelola Makanan (List) · Form Makanan (Add/Edit) ·
 Kelola Nutrisi · K-Means Clustering · Buat Menu Harian · Kelola Feedback.
 
-**Mobile (6):** Login · Menu Hari Ini · Detail Nutrisi · Riwayat Menu · Kirim Feedback · Status Feedback.
+**Mobile (6) — v2 polished mid-fi:** Login (logo box + "Welcome Back!") · Menu Hari Ini
+(greeting + menu card dengan bullet list) · Detail Nutrisi (tabel nutrisi + daftar makanan)
+· Feedback (5-star rating + textarea 0/300) · Riwayat Menu (4 cards w/ chevron) · Profil
+(avatar + name + email + list items + Logout). **Bottom nav 3-tab: Home / Riwayat / Profil.**
+Status bar realistis (9:41 + signal/wifi/battery), header dengan back arrow, iPhone home indicator.
 
 ## Two paths to Figma (no manual re-drawing)
 1. **Figma Plugin (recommended)** — User downloads the plugin zip, imports the manifest in Figma
@@ -45,6 +49,11 @@ Kelola Nutrisi · K-Means Clustering · Buat Menu Harian · Kelola Feedback.
   - Wireframe spec for 14 screens (~650 blocks total)
   - Figma plugin (vanilla JS, self-contained, embedded SPEC)
   - End-to-end testing: 20/20 backend, 100% frontend (iteration_1.json)
+- **2026-01-08 (Mobile v2)** — Mobile wireframes redesigned to match user-supplied
+  reference style: realistic status bar, 3-tab bottom nav (Home/Riwayat/Profil), polished
+  cards w/ bullet lists, nutrition table, star rating widget, profile screen w/ avatar.
+  Replaced `mobile-feedback-status` with new `mobile-profile`. Total mobile blocks: 238.
+  Figma plugin auto-regenerated with new SPEC, syntax verified via `node --check`.
 
 ## Backlog / Future
 - **P1** — Implement the actual MBG application after wireframes approved (CRUD makanan, CRUD nutrisi,
