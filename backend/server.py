@@ -205,12 +205,7 @@ async def figma_plugin_zip():
     )
 
 
-def _build_plugin_code(spec_json: str) -> str:
-    return (
-        "// MBG Wireframe Generator — Figma Plugin\n"
-        "// Auto-generates all wireframes onto the canvas.\n"
-        "const SPEC = " + spec_json + ";\n\n"
-        + r"""
+_PLUGIN_HELPERS_JS = r"""
 figma.showUI(__html__, { width: 320, height: 380 });
 
 function hexToRgb(hex) {
@@ -235,7 +230,9 @@ async function loadFonts() {
   await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
   await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
 }
+"""
 
+_PLUGIN_BUILDERS_JS = r"""
 function buildBlock(block, colors) {
   if (block.type === 'rect') {
     const r = figma.createRectangle();
@@ -285,7 +282,9 @@ function buildScreen(screen, colors, offsetX, offsetY) {
   }
   return frame;
 }
+"""
 
+_PLUGIN_GENERATOR_JS = r"""
 async function generate(scope) {
   await loadFonts();
 
@@ -300,7 +299,6 @@ async function generate(scope) {
   const COL_GAP = 80;
   const ROW_GAP = 120;
 
-  // Two-row layout: web row + mobile row
   const webItems = screens.filter(s => s.id.indexOf('web-') === 0);
   const mobItems = screens.filter(s => s.id.indexOf('mobile-') === 0);
 
@@ -315,7 +313,7 @@ async function generate(scope) {
   }
 
   if (mobItems.length) {
-    yCursor += 900 + ROW_GAP; // below web row
+    yCursor += 900 + ROW_GAP;
     xCursor = 0;
     for (const s of mobItems) {
       const node = buildScreen(s, colors, xCursor, yCursor);
@@ -345,7 +343,15 @@ figma.ui.onmessage = async (msg) => {
   }
 };
 """
+
+
+def _build_plugin_code(spec_json: str) -> str:
+    header = (
+        "// MBG Wireframe Generator — Figma Plugin\n"
+        "// Auto-generates all wireframes onto the canvas.\n"
+        f"const SPEC = {spec_json};\n"
     )
+    return header + _PLUGIN_HELPERS_JS + _PLUGIN_BUILDERS_JS + _PLUGIN_GENERATOR_JS
 
 
 def _build_plugin_ui() -> str:

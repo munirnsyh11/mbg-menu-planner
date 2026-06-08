@@ -99,7 +99,8 @@ def test_figma_plugin_download(session):
 
 def test_figma_plugin_code_js_valid_syntax(session):
     """Validate code.js is parseable JavaScript using node --check."""
-    import subprocess, tempfile
+    import subprocess
+    import tempfile
     r = session.get(f"{BASE_URL}/api/figma-plugin/download")
     assert r.status_code == 200
     zf = zipfile.ZipFile(io.BytesIO(r.content))
