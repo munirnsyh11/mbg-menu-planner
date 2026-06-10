@@ -1,8 +1,36 @@
 {
-  "type": "module",
+  "name": "mbg-menu-planner-backend",
+  "version": "1.0.0",
+  "description": "MBG Menu Planner & Auto-Nutrient Balancing System - Backend API",
   "main": "src/server.js",
+  "type": "module",
   "scripts": {
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["mbg", "menu-planner", "kmeans", "nodejs", "express", "mongodb"],
+  "author": "TI-24-KA Kelompok 2",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1",
+    "morgan": "^1.10.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.4.0",
+    "nodemon": "^3.1.3"
   }
 }

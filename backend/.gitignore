@@ -1,4 +1,28 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Environment variables - JANGAN PERNAH commit file ini!
 .env
-dist
-coverage
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Build output
+dist/
+build/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
