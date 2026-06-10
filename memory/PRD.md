@@ -1,68 +1,59 @@
-# MBG Wireframe Studio — PRD
+# MBG Wireframe Studio + Admin Dashboard — PRD
 
 ## Original Problem Statement
-User requested a web application that, as a first step, generates **mid-fidelity wireframes** for the
-**MBG Menu Planner & Auto-Nutrient Balancing System** based on the supplied BRD (`Flow Project MBG.docx`),
-and pushes those wireframes directly to Figma so they don't have to be re-drawn manually.
-
-User choices (gathered via `ask_human`):
-- Output: HTML/CSS wireframe **AND** a downloadable Figma Plugin (TypeScript/JS)
-- Scope: **Web Admin + Mobile** (both)
-- Fidelity: **Mid-fidelity**
-- Palette: **Greyscale (abu-abu)**
+Bangun aplikasi MBG Menu Planner & Auto-Nutrient Balancing System dalam 3 fase:
+1. **Wireframe Studio** — 14 wireframe mid-fi (Web + Mobile) yang bisa diekspor ke Figma.
+2. **Mobile v2** — redesign polished mid-fi sesuai referensi user (status bar realistis, 3-tab bottom nav, profil screen).
+3. **Admin Dashboard high-fidelity** — modern SaaS admin UI dengan green theme (#16A34A), 7 halaman, terhubung ke API MBG backend yang sudah ready.
 
 ## Architecture
-- **Frontend** — React (CRA + craco). Single-page "Wireframe Studio" with sidebar (Web + Mobile lists),
-  topbar (Copy HTML / Buka HTML / Semua HTML / Download Plugin Figma), live canvas preview, and an
-  embedded Figma import guide. Wireframes are rendered from a JSON spec served by the backend.
-- **Backend** — FastAPI. Endpoints under `/api`:
-  - `GET /api/` — metadata
-  - `GET /api/wireframes` — colors + all screen specs (blocks)
-  - `GET /api/wireframes/all/html` — single HTML page with every screen (for html.to.design)
-  - `GET /api/wireframes/{screen_id}/html` — standalone HTML per screen
-  - `GET /api/figma-plugin/download` — ZIP containing `manifest.json`, `code.js`, `ui.html`, `README.md`
-- **Wireframe spec** — `/app/backend/wireframe_spec.py` (8 web + 6 mobile screens). Each screen has
-  `id`, `name`, `frame {w,h}` and a list of `blocks` (rect / text) consumed by both the React renderer
-  and the Figma plugin.
+- **Frontend** — React 19 + React Router v7 + Tailwind. Dua route group: `/wireframes` (Wireframe Studio) dan `/admin/*` (Admin Dashboard).
+- **Wireframe backend** — FastAPI internal di `/api/*` (port 8001) untuk serve wireframe spec & Figma plugin zip.
+- **MBG backend** — Eksternal (Node.js), URL via `REACT_APP_MBG_API_URL` (default `http://localhost:5000`). Axios client di `lib/mbg-api.js` dengan JWT bearer interceptor. AuthContext store token di localStorage.
 
-## Wireframes Delivered (14 total)
-**Web Admin (8):** Login · Dashboard · Kelola Makanan (List) · Form Makanan (Add/Edit) ·
-Kelola Nutrisi · K-Means Clustering · Buat Menu Harian · Kelola Feedback.
+## Admin Dashboard Pages (7)
+1. **Login** — Email/password, green theme, eye-toggle password, demo credentials.
+2. **Dashboard** — 4 stat cards (Foods/Nutritions/Menus/Feedbacks) + clustering summary + feedback split + menu split + recent menus table.
+3. **Foods** — CRUD makanan (search, filter kategori, add/edit/delete modal).
+4. **Nutrition** — CRUD nutrisi per 100g, dropdown food selector, locked food selector when editing.
+5. **Clustering** — Run K-Means (input K 2-10), cluster cards dengan centroid + food chips.
+6. **Menu Planner** — Buat menu harian (multi-food + portion gram), live AKG summary bars, simpan draft / publish menu, detail modal.
+7. **Feedback** — Stat cards by status, kartu feedback grid dengan star rating, transitions (new→reviewed→resolved).
 
-**Mobile (6) — v2 polished mid-fi:** Login (logo box + "Welcome Back!") · Menu Hari Ini
-(greeting + menu card dengan bullet list) · Detail Nutrisi (tabel nutrisi + daftar makanan)
-· Feedback (5-star rating + textarea 0/300) · Riwayat Menu (4 cards w/ chevron) · Profil
-(avatar + name + email + list items + Logout). **Bottom nav 3-tab: Home / Riwayat / Profil.**
-Status bar realistis (9:41 + signal/wifi/battery), header dengan back arrow, iPhone home indicator.
-
-## Two paths to Figma (no manual re-drawing)
-1. **Figma Plugin (recommended)** — User downloads the plugin zip, imports the manifest in Figma
-   Desktop (Plugins → Development → Import plugin from manifest), runs *MBG Wireframe Generator* and
-   gets every frame auto-created on the canvas.
-2. **html.to.design plugin** — User installs the free `html.to.design` plugin in Figma, copies the
-   per-screen HTML (Copy HTML / Buka HTML) and pastes it into the plugin to import.
+## Tech Decisions
+- Routing: React Router v7 dengan `RequireAuth` guard untuk semua route `/admin/*` kecuali login.
+- State: AuthContext (token + user) + local useState/SWR-ish patterns per page.
+- API: `mbgApi` axios instance + interceptor inject bearer token + auto-clear on 401.
+- UI: Custom admin design system di `components/admin/ui.js` (Card, StatCard, Button, Badge, Input, Select, Textarea, Label, EmptyState) + `Modal` dengan ESC/backdrop close.
+- Style: Tailwind utility-first, green #16A34A primary (emerald-600), slate-50 background, white surfaces, rounded-xl cards.
+- Icons: lucide-react.
 
 ## Implementation Log
-- **2026-01-08 (MVP)** — Full MBG Wireframe Studio built:
-  - React App + flex layout (sidebar / topbar / canvas / howto panel)
-  - FastAPI backend with 5 endpoints
-  - Wireframe spec for 14 screens (~650 blocks total)
-  - Figma plugin (vanilla JS, self-contained, embedded SPEC)
-  - End-to-end testing: 20/20 backend, 100% frontend (iteration_1.json)
-- **2026-01-08 (Mobile v2)** — Mobile wireframes redesigned to match user-supplied
-  reference style: realistic status bar, 3-tab bottom nav (Home/Riwayat/Profil), polished
-  cards w/ bullet lists, nutrition table, star rating widget, profile screen w/ avatar.
-  Replaced `mobile-feedback-status` with new `mobile-profile`. Total mobile blocks: 238.
-  Figma plugin auto-regenerated with new SPEC, syntax verified via `node --check`.
+- **2026-01-08 (MVP wireframe)** — 14 wireframe mid-fi + Figma plugin generator.
+- **2026-01-08 (Mobile v2)** — Mobile redesign polished mid-fi style (Login/Home/Detail/Feedback/History/Profil).
+- **2026-01-10 (Admin Dashboard)** — Full high-fi admin dashboard dengan 7 halaman, AuthContext, mbgApi client, React Router, modal forms.
+  - **Lint cleanup** — Refactor useEffect+setState pattern menggunakan `setTimeout(load, 0)` untuk satisfy strict React Compiler `set-state-in-effect` rule. Renamed `ref` prop → `target` di AkgBar.
 
 ## Backlog / Future
-- **P1** — Implement the actual MBG application after wireframes approved (CRUD makanan, CRUD nutrisi,
-  K-Means clustering, menu generator, mobile feedback flow).
-- **P2** — Add high-fidelity skin (brand colors / icons) once wireframes signed off.
-- **P2** — Per-screen "Annotate" overlay (notes layer) for stakeholder review.
-- **P3** — Auto-export PNG/PDF of all wireframes for offline review.
+- **P1** — Pagination UI komponen (data sudah disediakan oleh API).
+- **P2** — Skeleton loaders alih-alih "Memuat..." text.
+- **P2** — Search debounce yang lebih smart di Foods (currently 250ms).
+- **P2** — Charts (recharts) untuk distribusi nutrisi & trend feedback.
+- **P3** — Dark mode.
 
 ## Next Action Items
-1. Validate wireframes with stakeholder (Admin Dapur MBG + Petugas Sekolah).
-2. After sign-off, proceed to implementation of the MBG app (backend models, K-Means service,
-   FastAPI CRUD endpoints, React admin UI, React Native mobile UI).
+1. Jalankan MBG backend di localhost:5000 ATAU deploy ke URL publik, lalu update `REACT_APP_MBG_API_URL` di `/app/frontend/.env`.
+2. Seed admin user dengan bcrypt-hash dari password `password123`.
+3. Login via `/admin/login` → eksplor semua 7 halaman.
+4. Optional: Integrate dengan mobile app (PWA atau React Native) menggunakan API yang sama.
+
+## Test Credentials (perlu di-seed di MBG backend)
+- Admin:           `admin@mbg.id` / `password123`
+- School Officer:  `officer@sekolah.sch.id` / `password123`
+
+## Routes
+- `/` → redirect ke `/admin` (jika logged in) atau `/admin/login`
+- `/wireframes` → Wireframe Studio
+- `/admin/login` → Login page
+- `/admin` → Dashboard (protected)
+- `/admin/foods` · `/admin/nutritions` · `/admin/clustering` · `/admin/menus` · `/admin/feedback`
