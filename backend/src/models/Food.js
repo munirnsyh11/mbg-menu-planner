@@ -92,7 +92,8 @@ foodSchema.index({ category: 1 });
 foodSchema.index({ cluster_id: 1 });
 foodSchema.index({ cluster_label: 1 });
 foodSchema.index({ created_by: 1 });
-// name field digunakan untuk $regex search — tidak butuh text index
+// Index teks untuk pencarian nama makanan
+foodSchema.index({ name: 'text' });
 
 const Food = mongoose.model('Food', foodSchema);
 

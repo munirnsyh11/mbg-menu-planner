@@ -1,10 +1,6 @@
 // src/routes/menuRoutes.js
-// Route definitions untuk Menus
+// UPDATED — tambahkan DELETE /api/menus/:id
 // Base path: /api/menus (di-mount dari routes/index.js)
-//
-// Akses per role:
-//   - Web Admin (admin)      : semua endpoint
-//   - Mobile App (school_officer) : GET /today, GET /history, GET /:id
 
 import { Router } from 'express';
 import {
@@ -15,8 +11,11 @@ import {
   createMenu,
   updateMenu,
 } from '../controllers/menuController.js';
-import { protect } from '../middleware/auth.js';
-import { adminOnly } from '../middleware/roleCheck.js';
+// ← TAMBAHAN: import deleteMenu controller
+import { deleteMenu } from '../controllers/deleteMenuController.js';
+
+import { protect }                 from '../middleware/auth.js';
+import { adminOnly }               from '../middleware/roleCheck.js';
 import { validateBody, validateQuery } from '../middleware/validate.js';
 import {
   createMenuSchema,
@@ -29,19 +28,17 @@ const router = Router();
 // Semua route menus memerlukan autentikasi
 router.use(protect);
 
-// ─── Public (semua role terautentikasi) ──────────────────────────
+// ─── Static routes — HARUS sebelum /:id ──────────────────────────
 
 /**
  * GET /api/menus/today
  * Menu hari ini — mobile app + web admin
- * ⚠️  HARUS didefinisikan SEBELUM /:id agar tidak di-intercept sebagai ObjectId
  */
 router.get('/today', getTodayMenu);
 
 /**
  * GET /api/menus/history
  * Riwayat menu published — mobile app + web admin
- * ⚠️  HARUS didefinisikan SEBELUM /:id
  */
 router.get('/history', validateQuery(listMenuQuerySchema), getMenuHistory);
 
@@ -61,7 +58,7 @@ router.post('/', adminOnly, validateBody(createMenuSchema), createMenu);
 
 /**
  * GET /api/menus/:id
- * Detail menu — tersedia untuk semua role (admin & school_officer)
+ * Detail menu — tersedia untuk semua role
  */
 router.get('/:id', getMenuById);
 
@@ -70,5 +67,11 @@ router.get('/:id', getMenuById);
  * Update menu
  */
 router.put('/:id', adminOnly, validateBody(updateMenuSchema), updateMenu);
+
+/**
+ * DELETE /api/menus/:id     ← BARU
+ * Hapus menu dan seluruh MenuDetail yang berelasi
+ */
+router.delete('/:id', adminOnly, deleteMenu);
 
 export default router;

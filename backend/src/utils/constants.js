@@ -1,5 +1,4 @@
-// src/utils/constants.js
-// Konstanta global sesuai BRD dan Database Schema
+
 
 // Roles pengguna
 export const ROLES = {
@@ -42,13 +41,13 @@ export const KMEANS_DEFAULTS = {
   MIN_DATA_POINTS: 5,
 };
 
-// Standar AKG Nasional (per hari)
-// Referensi: Permenkes RI tentang AKG
+// Standar AKG untuk porsi makan siang anak usia sekolah (BRD BAB 10.4)
+// Acuan: ±30% dari AKG harian — BUKAN AKG harian penuh
 export const AKG_STANDARDS = {
-  CALORIES: { min: 2100, max: 2350 },   // kkal/hari
-  PROTEIN: { min: 57, max: 72 },         // gram/hari
-  FAT: { min: 70, max: 91 },             // gram/hari
-  CARBOHYDRATE: { min: 289, max: 349 },  // gram/hari
+  CALORIES:     { min: 600, max: 800 },  // kkal/porsi
+  PROTEIN:      { min: 15 },             // gram/porsi 
+  FAT:          { max: 25 },             // gram/porsi 
+  CARBOHYDRATE: { min: 60 },             // gram/porsi 
 };
 
 // HTTP Status Codes
