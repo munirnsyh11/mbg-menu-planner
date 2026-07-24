@@ -1,7 +1,3 @@
-// src/routes/index.js
-// Router utama — semua module terimplementasi
-// Di-mount di app.js: app.use('/api', router)
-
 import { Router } from 'express';
 import authRoutes       from './authRoutes.js';
 import dashboardRoutes  from './dashboardRoutes.js';

@@ -1,6 +1,3 @@
-// src/app.js
-// Konfigurasi Express application
-
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -60,8 +57,6 @@ app.get('/health', (req, res) => {
 app.use('/api', router);
 
 // ─── Error Handling ───────────────────────────────────────────────
-// notFound HARUS setelah semua route
-// errorHandler HARUS paling terakhir
 app.use(notFound);
 app.use(errorHandler);
 

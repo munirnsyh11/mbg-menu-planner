@@ -1,6 +1,3 @@
-// src/validations/clusteringValidation.js
-// Joi schema untuk validasi request Clustering
-
 import Joi from 'joi';
 import { KMEANS_DEFAULTS } from '../utils/constants.js';
 

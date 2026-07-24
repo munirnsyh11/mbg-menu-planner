@@ -1,7 +1,3 @@
-// src/models/User.js
-// Collection: users
-// BRD Ref: BAB 5 — Table: users
-
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { env } from '../config/env.js';

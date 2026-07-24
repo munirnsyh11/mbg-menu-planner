@@ -1,18 +1,11 @@
-// src/validations/nutritionValidation.js
-// Joi schema untuk validasi request Nutritions CRUD
-
 import Joi from 'joi';
 
-// ─── Reusable nutrient field ──────────────────────────────────────
-// Semua nilai nutrisi: angka, min 0, maks 2 desimal
 const nutrientField = (label) =>
   Joi.number().min(0).precision(2).messages({
     'number.base':  `${label} harus berupa angka`,
     'number.min':   `${label} tidak boleh negatif`,
   });
 
-// ─── Create Nutrition ─────────────────────────────────────────────
-// food_id dikirim di body — service akan validasi keberadaan food-nya
 export const createNutritionSchema = Joi.object({
   food_id: Joi.string().hex().length(24).required().messages({
     'string.hex':     'food_id harus berupa MongoDB ObjectId yang valid',
@@ -28,8 +21,6 @@ export const createNutritionSchema = Joi.object({
   fiber:        nutrientField('Serat').allow(null).optional(),
 });
 
-// ─── Update Nutrition ─────────────────────────────────────────────
-// food_id tidak bisa diubah — diidentifikasi via URL param :foodId
 export const updateNutritionSchema = Joi.object({
   calories:     nutrientField('Kalori').optional(),
   protein:      nutrientField('Protein').optional(),

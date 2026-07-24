@@ -1,7 +1,3 @@
-// src/services/authService.js
-// Business logic untuk Authentication
-// Controller memanggil service — service mengurus database & JWT
-
 import User from '../models/User.js';
 import { signAccessToken } from '../utils/jwt.js';
 import { AppError } from '../middleware/errorHandler.js';

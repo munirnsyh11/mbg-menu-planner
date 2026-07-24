@@ -130,12 +130,16 @@ export const getAllMenusService = async (queryParams) => {
     meets_akg,
     date_from,
     date_to,
+    search,
     sort_order = 'desc',
   } = queryParams;
 
   const filter = {};
   if (status)    filter.status    = status;
   if (meets_akg !== undefined) filter.meets_akg = meets_akg;
+  if (search && search.trim()) {
+    filter.menu_name = { $regex: search.trim(), $options: 'i' };
+  }
 
   if (date_from || date_to) {
     filter.menu_date = {};

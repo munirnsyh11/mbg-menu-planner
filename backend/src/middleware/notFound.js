@@ -1,6 +1,3 @@
-// src/middleware/notFound.js
-// Handler untuk route yang tidak ditemukan
-
 import { AppError } from './errorHandler.js';
 
 export const notFound = (req, res, next) => {

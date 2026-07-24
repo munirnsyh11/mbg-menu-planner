@@ -8,7 +8,7 @@
 // berada di jaringan WiFi yang sama dengan komputer.
 
 export const CONFIG = {
-  API_URL: "http://192.168.18.12:5000/api",
+  API_URL: "http://10.2.9.134:5000/api",
 
   // Timeout request (ms)
   TIMEOUT: 15000,

@@ -78,6 +78,7 @@ export const listMenuQuerySchema = Joi.object({
 
   status:     Joi.string().valid(...statusValues, '').optional(),
   meets_akg:  Joi.boolean().optional(),
+  search:     Joi.string().trim().max(150).allow('').optional(),
 
   // Filter rentang tanggal
   date_from: Joi.date().iso().optional(),

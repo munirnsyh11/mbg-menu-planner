@@ -1,22 +1,5 @@
-// src/services/kmeansService.js
-// Pure K-Means algorithm — tidak ada dependency ke database atau framework
-// Input/output berupa plain JS objects agar mudah diuji secara terpisah
-//
-// Algoritma:
-//   1. Min-Max Normalization pada 4 fitur (calories, protein, fat, carbohydrate)
-//   2. Inisialisasi centroid: K-Means++ (deterministic seed dari data pertama)
-//   3. Assignment step: Euclidean Distance ke centroid terdekat
-//   4. Update step: hitung mean tiap cluster
-//   5. Konvergen jika tidak ada perubahan assignment atau iterasi habis
-
 import { KMEANS_DEFAULTS } from '../utils/constants.js';
 import { roundToDecimal } from '../utils/helpers.js';
-
-// ─── Tipe Data ────────────────────────────────────────────────────
-// DataPoint: { id: string, calories: number, protein: number, fat: number, carbohydrate: number }
-// NormalizedPoint: { id: string, features: [number, number, number, number] }
-// Centroid: [number, number, number, number]
-// KMeansResult: { assignments: Map<string, number>, centroids: Centroid[], iterations: number }
 
 // ─── Step 1: Min-Max Normalization ────────────────────────────────
 /**

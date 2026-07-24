@@ -1,7 +1,3 @@
-// src/services/foodService.js
-// Business logic untuk Foods CRUD
-// Controller memanggil service — service mengurus semua interaksi database
-
 import Food from '../models/Food.js';
 import Nutrition from '../models/Nutrition.js';
 import MenuDetail from '../models/MenuDetail.js';

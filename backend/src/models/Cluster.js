@@ -1,14 +1,3 @@
-// src/models/Cluster.js
-// Collection: clusters
-// BRD Ref: BAB 5 — Table: clusters
-// Relasi:
-//   - clusters._id → foods.cluster_id (1-to-Many)
-//   Satu run K-Means menghasilkan K dokumen cluster (satu per label)
-// Catatan:
-//   - Tidak ada updated_at karena BRD hanya mendefinisikan created_at
-//   - Setiap run K-Means menghasilkan sekumpulan dokumen baru
-//   - is_active: true hanya boleh ada SATU per run_id yang aktif
-
 import mongoose from 'mongoose';
 
 // ─── Schema ───────────────────────────────────────────────────────

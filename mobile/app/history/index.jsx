@@ -41,7 +41,7 @@ export default function History() {
   const loadHistory = async () => {
     try {
       setErrorMsg(null);
-      const { menus, pagination: pag } = await getHistoryMenu(1, 10);
+      const { menus, pagination: pag } = await getHistoryMenu(2, 20);
       setHistoryMenu(menus);
       setPagination(pag);
     } catch (error) {

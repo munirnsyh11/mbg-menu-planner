@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontSize: 26,
+    fontSize: 20,
     fontWeight: "bold",
   },
 

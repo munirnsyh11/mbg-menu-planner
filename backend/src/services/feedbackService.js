@@ -1,10 +1,3 @@
-// src/services/feedbackService.js
-// Business logic untuk Feedback Module
-//
-// Akses per role:
-//   school_officer : POST /feedback (kirim), GET /feedback/status (lihat milik sendiri)
-//   admin          : GET /feedback (semua), PATCH /feedback/:id/status (ubah status)
-
 import Feedback from '../models/Feedback.js';
 import Menu     from '../models/Menu.js';
 import { ApiError }         from '../utils/ApiError.js';

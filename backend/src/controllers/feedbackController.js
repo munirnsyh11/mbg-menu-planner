@@ -1,6 +1,3 @@
-// src/controllers/feedbackController.js
-// Controller Feedback Module
-
 import {
   createFeedbackService,
   getAllFeedbacksService,
@@ -11,10 +8,6 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 // ─── POST /api/feedback ───────────────────────────────────────────
-/**
- * Kirim feedback — school_officer only
- * Body: { menu_id, rating, comment? }
- */
 export const createFeedback = asyncHandler(async (req, res) => {
   const feedback = await createFeedbackService(req.body, req.user.id);
 
@@ -22,10 +15,6 @@ export const createFeedback = asyncHandler(async (req, res) => {
 });
 
 // ─── GET /api/feedback ────────────────────────────────────────────
-/**
- * List semua feedback — admin only
- * Query: ?page=1&limit=10&status=new&menu_id=<id>&sort_order=desc
- */
 export const getAllFeedbacks = asyncHandler(async (req, res) => {
   const { feedbacks, summary, pagination } = await getAllFeedbacksService(req.query);
 
@@ -39,10 +28,6 @@ export const getAllFeedbacks = asyncHandler(async (req, res) => {
 });
 
 // ─── GET /api/feedback/status ─────────────────────────────────────
-/**
- * Status feedback milik school_officer yang sedang login
- * Query: ?page=1&limit=10
- */
 export const getMyFeedbackStatus = asyncHandler(async (req, res) => {
   const { feedbacks, pagination } = await getMyFeedbackStatusService(
     req.user.id,
@@ -58,10 +43,6 @@ export const getMyFeedbackStatus = asyncHandler(async (req, res) => {
 });
 
 // ─── PATCH /api/feedback/:id/status ──────────────────────────────
-/**
- * Update status feedback — admin only
- * Body: { status: 'reviewed' | 'resolved' }
- */
 export const updateFeedbackStatus = asyncHandler(async (req, res) => {
   const feedback = await updateFeedbackStatusService(
     req.params.id,

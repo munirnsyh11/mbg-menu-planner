@@ -1,7 +1,3 @@
-// src/validations/foodValidation.js
-// Joi schema untuk validasi request Foods CRUD
-
-import Joi from 'joi';
 import { FOOD_CATEGORIES } from '../utils/constants.js';
 
 const categoryValues = Object.values(FOOD_CATEGORIES);

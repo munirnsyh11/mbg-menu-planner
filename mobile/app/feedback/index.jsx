@@ -140,6 +140,7 @@ export default function Feedback() {
           value={comment}
           onChangeText={setComment}
           placeholder="Tulis pendapat Anda di sini..."
+          placeholderTextColor="#666"
           style={styles.input}
           maxLength={500}
         />

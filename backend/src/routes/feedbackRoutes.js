@@ -1,11 +1,3 @@
-// src/routes/feedbackRoutes.js
-// Route definitions untuk Feedback Module
-// Base path: /api/feedback (di-mount dari routes/index.js)
-//
-// Akses per role:
-//   school_officer : POST /feedback, GET /feedback/status
-//   admin          : GET /feedback, PATCH /feedback/:id/status
-
 import { Router } from 'express';
 import {
   createFeedback,
@@ -29,12 +21,6 @@ const router = Router();
 router.use(protect);
 
 // ─── school_officer routes ────────────────────────────────────────
-
-/**
- * POST /api/feedback
- * Kirim feedback untuk menu published
- * Body: { menu_id, rating, comment? }
- */
 router.post(
   '/',
   schoolOfficerOnly,
@@ -42,12 +28,6 @@ router.post(
   createFeedback
 );
 
-/**
- * GET /api/feedback/status
- * Lihat status feedback milik sendiri
- * ⚠️  HARUS didefinisikan SEBELUM /:id agar tidak diinterpretasikan sebagai ObjectId
- * Query: ?page=1&limit=10
- */
 router.get(
   '/status',
   schoolOfficerOnly,
@@ -56,12 +36,6 @@ router.get(
 );
 
 // ─── admin routes ─────────────────────────────────────────────────
-
-/**
- * GET /api/feedback
- * List semua feedback + summary per status
- * Query: ?page=1&limit=10&status=new&menu_id=<id>
- */
 router.get(
   '/',
   adminOnly,
@@ -69,11 +43,6 @@ router.get(
   getAllFeedbacks
 );
 
-/**
- * PATCH /api/feedback/:id/status
- * Update status feedback (new → reviewed → resolved)
- * Body: { status: 'reviewed' | 'resolved' }
- */
 router.patch(
   '/:id/status',
   adminOnly,

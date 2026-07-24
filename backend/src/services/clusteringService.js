@@ -1,12 +1,3 @@
-// src/services/clusteringService.js
-// Orchestrator: ambil data → jalankan K-Means → simpan hasil ke DB
-// Memanggil kmeansService (algoritma murni) dan berinteraksi dengan MongoDB
-//
-// CATATAN KOMPATIBILITAS:
-// MongoDB Atlas M0 (Free Tier) tidak mendukung multi-document transactions
-// karena M0 bukan Replica Set. Operasi DB dilakukan secara sequential dengan
-// manual rollback jika terjadi error di tengah proses.
-
 import mongoose from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 

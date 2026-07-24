@@ -1,10 +1,3 @@
-// src/models/Nutrition.js
-// Collection: nutritions
-// BRD Ref: BAB 5 — Table: nutritions
-// Relasi:
-//   - nutritions.food_id → foods._id (1-to-1, UNIQUE constraint)
-//   Satu bahan makanan memiliki tepat satu data nutrisi
-
 import mongoose from 'mongoose';
 
 // ─── Schema ───────────────────────────────────────────────────────
@@ -62,9 +55,6 @@ const nutritionSchema = new mongoose.Schema(
   }
 );
 
-// ─── Indexes ──────────────────────────────────────────────────────
-// food_id sudah di-index otomatis karena unique: true
-// Index tambahan untuk query K-Means (ambil semua nutrisi sekaligus)
 nutritionSchema.index({ calories: 1, protein: 1, fat: 1, carbohydrate: 1 });
 
 const Nutrition = mongoose.model('Nutrition', nutritionSchema);

@@ -1,10 +1,3 @@
-// src/models/Feedback.js
-// Collection: feedbacks
-// BRD Ref: BAB 5 — Table: feedbacks
-// Relasi:
-//   - feedbacks.menu_id → menus._id  (Many-to-1)
-//   - feedbacks.user_id → users._id  (Many-to-1, hanya school_officer)
-
 import mongoose from 'mongoose';
 
 // ─── Enum Values (sesuai BRD) ─────────────────────────────────────

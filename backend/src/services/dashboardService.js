@@ -1,7 +1,3 @@
-// src/services/dashboardService.js
-// Agregasi semua statistik untuk Dashboard admin
-// Semua query dijalankan secara paralel untuk efisiensi
-
 import Food      from '../models/Food.js';
 import Nutrition from '../models/Nutrition.js';
 import Menu      from '../models/Menu.js';

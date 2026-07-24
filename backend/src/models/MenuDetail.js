@@ -1,14 +1,3 @@
-// src/models/MenuDetail.js
-// Collection: menu_details
-// BRD Ref: BAB 5 — Table: menu_details
-// Relasi:
-//   - menu_details.menu_id → menus._id (Many-to-1)
-//   - menu_details.food_id → foods._id (Many-to-1)
-//   Tabel penghubung relasi Many-to-Many antara menus dan foods
-// Catatan:
-//   - BRD tidak mendefinisikan timestamps untuk menu_details
-//   - Tidak ada created_at / updated_at
-
 import mongoose from 'mongoose';
 
 // ─── Schema ───────────────────────────────────────────────────────

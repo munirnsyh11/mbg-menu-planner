@@ -1,6 +1,3 @@
-// src/controllers/clusteringController.js
-// Controller K-Means Clustering
-
 import {
   runClusteringService,
   getActiveClusteringService,
@@ -10,10 +7,6 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 // ─── POST /api/clustering/run ─────────────────────────────────────
-/**
- * Jalankan K-Means Clustering
- * Body: { k?: number }  — default k=3
- */
 export const runClustering = asyncHandler(async (req, res) => {
   const { k } = req.body;
 
@@ -27,10 +20,6 @@ export const runClustering = asyncHandler(async (req, res) => {
 });
 
 // ─── GET /api/clustering/active ───────────────────────────────────
-/**
- * Ambil hasil clustering yang sedang aktif
- * Include daftar foods per cluster
- */
 export const getActiveClustering = asyncHandler(async (req, res) => {
   const result = await getActiveClusteringService();
 
@@ -38,10 +27,6 @@ export const getActiveClustering = asyncHandler(async (req, res) => {
 });
 
 // ─── GET /api/clustering/history ──────────────────────────────────
-/**
- * Riwayat semua run K-Means
- * Query: ?page=1&limit=10
- */
 export const getClusteringHistory = asyncHandler(async (req, res) => {
   const { runs, pagination } = await getClusteringHistoryService(req.query);
 

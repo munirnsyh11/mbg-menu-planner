@@ -1,6 +1,3 @@
-// src/controllers/nutritionController.js
-// Controller Nutritions CRUD
-
 import {
   getAllNutritionsService,
   getNutritionByFoodIdService,
@@ -11,10 +8,6 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 // ─── GET /api/nutritions ──────────────────────────────────────────
-/**
- * List semua data nutrisi dengan pagination
- * Query: ?page=1&limit=10&min_calories=50&max_calories=300&sort_by=calories&sort_order=asc
- */
 export const getAllNutritions = asyncHandler(async (req, res) => {
   const { nutritions, pagination } = await getAllNutritionsService(req.query);
 
@@ -27,9 +20,6 @@ export const getAllNutritions = asyncHandler(async (req, res) => {
 });
 
 // ─── GET /api/nutritions/:foodId ──────────────────────────────────
-/**
- * Detail nutrisi satu makanan — diakses via food_id, bukan nutrition _id
- */
 export const getNutritionByFoodId = asyncHandler(async (req, res) => {
   const nutrition = await getNutritionByFoodIdService(req.params.foodId);
 
@@ -37,10 +27,6 @@ export const getNutritionByFoodId = asyncHandler(async (req, res) => {
 });
 
 // ─── POST /api/nutritions ─────────────────────────────────────────
-/**
- * Tambah data nutrisi untuk satu makanan
- * Body: { food_id, calories, protein, fat, carbohydrate, fiber? }
- */
 export const createNutrition = asyncHandler(async (req, res) => {
   const nutrition = await createNutritionService(req.body);
 
@@ -48,10 +34,6 @@ export const createNutrition = asyncHandler(async (req, res) => {
 });
 
 // ─── PUT /api/nutritions/:foodId ──────────────────────────────────
-/**
- * Update data nutrisi satu makanan (partial update)
- * Body: { calories?, protein?, fat?, carbohydrate?, fiber? }
- */
 export const updateNutrition = asyncHandler(async (req, res) => {
   const nutrition = await updateNutritionService(req.params.foodId, req.body);
 

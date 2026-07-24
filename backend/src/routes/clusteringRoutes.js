@@ -1,7 +1,3 @@
-// src/routes/clusteringRoutes.js
-// Route definitions untuk K-Means Clustering
-// Base path: /api/clustering (di-mount dari routes/index.js)
-
 import { Router } from 'express';
 import {
   runClustering,
@@ -20,25 +16,8 @@ const router = Router();
 
 // Semua route clustering: autentikasi + role admin
 router.use(protect, adminOnly);
-
-/**
- * POST /api/clustering/run
- * Jalankan K-Means Clustering
- * Body: { k?: number }
- */
 router.post('/run', validateBody(runKMeansSchema), runClustering);
-
-/**
- * GET /api/clustering/active
- * Hasil clustering yang sedang aktif (run terakhir)
- */
 router.get('/active', getActiveClustering);
-
-/**
- * GET /api/clustering/history
- * Riwayat semua run K-Means
- * Query: ?page=1&limit=10
- */
 router.get('/history', validateQuery(clusteringHistoryQuerySchema), getClusteringHistory);
 
 export default router;

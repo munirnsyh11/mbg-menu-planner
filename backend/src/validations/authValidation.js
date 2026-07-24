@@ -1,6 +1,3 @@
-// src/validations/authValidation.js
-// Joi schema untuk validasi request Auth
-
 import Joi from 'joi';
 
 // ─── Login Validation ─────────────────────────────────────────────

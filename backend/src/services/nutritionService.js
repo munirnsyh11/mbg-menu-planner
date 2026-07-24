@@ -1,7 +1,3 @@
-// src/services/nutritionService.js
-// Business logic untuk Nutritions CRUD
-// Relasi 1-to-1 dengan Foods: satu food → tepat satu nutrition document
-
 import Nutrition from '../models/Nutrition.js';
 import Food from '../models/Food.js';
 import { ApiError } from '../utils/ApiError.js';

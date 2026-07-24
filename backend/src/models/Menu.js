@@ -1,11 +1,3 @@
-// src/models/Menu.js
-// Collection: menus
-// BRD Ref: BAB 5 — Table: menus
-// Relasi:
-//   - menus.created_by → users._id (Many-to-1)
-//   - menus._id        → menu_details.menu_id (1-to-Many)
-//   - menus._id        → feedbacks.menu_id (1-to-Many)
-
 import mongoose from 'mongoose';
 
 // ─── Enum Values (sesuai BRD) ─────────────────────────────────────

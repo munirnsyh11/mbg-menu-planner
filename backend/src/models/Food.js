@@ -1,12 +1,3 @@
-// src/models/Food.js
-// Collection: foods
-// BRD Ref: BAB 5 — Table: foods
-// Relasi:
-//   - foods.created_by  → users._id  (Many-to-1)
-//   - foods.cluster_id  → clusters._id (Many-to-1, nullable — diisi setelah K-Means)
-//   - foods._id         → nutritions.food_id (1-to-1)
-//   - foods._id         → menu_details.food_id (1-to-Many, via MenuDetails)
-
 import mongoose from 'mongoose';
 
 // ─── Enum Values (sesuai BRD) ─────────────────────────────────────

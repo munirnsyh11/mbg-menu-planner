@@ -1,6 +1,3 @@
-// src/validations/feedbackValidation.js
-// Joi schema untuk validasi request Feedback
-
 import Joi from 'joi';
 import { FEEDBACK_STATUS, FEEDBACK_RATING } from '../utils/constants.js';
 

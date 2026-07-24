@@ -1,7 +1,3 @@
-// src/config/env.js
-// Validasi dan ekspor semua environment variables
-// Aplikasi akan crash saat startup jika variabel wajib tidak tersedia
-
 import 'dotenv/config';
 
 const requiredEnvVars = [

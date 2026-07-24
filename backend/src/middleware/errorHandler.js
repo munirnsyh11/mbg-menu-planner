@@ -1,6 +1,3 @@
-// src/middleware/errorHandler.js
-// Global error handling middleware
-
 import { env } from '../config/env.js';
 import { logger } from '../utils/logger.js';
 
